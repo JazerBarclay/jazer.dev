@@ -20,7 +20,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.get('/', (req, res) => {
-    res.send('It Works')
+    res.status(200).json({
+        status: 1, message: "welcome to jazer.dev/api"
+    })
 })
 
 const PORT = process.env.PORT || 5000
