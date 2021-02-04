@@ -1,5 +1,7 @@
 const { create, getAll, getByID, getByUsername, update, remove } = require('./userService')
-const { genSaltSync, hashSync } = require('bcrypt')
+const { genSaltSync, hashSync, compareSync } = require('bcrypt')
+
+const { sign } = require('jsonwebtoken')
 
 module.exports = {
     createUser: (req,res) => {
@@ -91,4 +93,22 @@ module.exports = {
             })
         })
     },
+    login: (req, res) => {
+        const body = req.body;
+        getByUsername(body.username, (err, results) => {
+            if (err) console.log(err)
+            if (!results) return res.json({ success: 0, message: "Invalid username or password"})
+            const comp = compareSync(body.password, results.password)
+            if (comp) {
+                results.password = undefined
+                const jsontoken = sign({result: results}, process.env.JWT_KEY, {expiresIn: "1h"})
+                return res.json({
+                    success: 1,
+                    message: "Login Successful",
+                    token: jsontoken
+                })
+            }
+            return res.json({ success: 0, message: "Invalid email or password"})
+        })
+    }
 }
