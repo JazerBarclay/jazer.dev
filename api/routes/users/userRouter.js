@@ -1,11 +1,13 @@
 const { createUser, getUsers, getUserByID, updateUser, deleteUser, login } = require('./userController')
 const router = require('express').Router()
 
-router.get('/', getUsers)
-router.get('/:id', getUserByID)
-router.post('/', createUser)
-router.patch('/:id', updateUser)
-router.delete('/:id', deleteUser)
+const { validate } = require('../../auth/tokenValidation')
+
+router.get('/', validate, getUsers)
+router.get('/:id', validate, getUserByID)
+router.post('/', validate, createUser)
+router.patch('/:id', validate, updateUser)
+router.delete('/:id', validate, deleteUser)
 router.post('/login', login)
 
 module.exports = router;
