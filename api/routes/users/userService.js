@@ -53,9 +53,9 @@ module.exports = {
             }
         )
     },
-    delete: (id, callBack) => {
+    remove: (id, callBack) => {
         db.query(
-            `DELETE FROM users WHERE user_id = $1`,
+            `DELETE FROM users WHERE user_id = $1;`,
             [id],
             (error, results, fields) => {
                 if (error) return callBack(error)

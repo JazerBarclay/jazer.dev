@@ -1,4 +1,4 @@
-const { create, getAll, getByID, getByUsername, update } = require('./userService')
+const { create, getAll, getByID, getByUsername, update, remove } = require('./userService')
 const { genSaltSync, hashSync } = require('bcrypt')
 
 module.exports = {
@@ -73,5 +73,22 @@ module.exports = {
                 data: results.rows[0]
             })
         })
-    }
+    },
+    deleteUser: (req,res) => {
+        const body = req.body
+        req.body.id = req.params.id
+        remove(req.params.id, (err, results) => {
+            if (err) {
+                console.log(err)
+                return res.status(500).json({
+                    success: 0,
+                    message: "Database connection error"
+                });
+            }
+            return res.status(200).json({
+                success: 1,
+                message: "User id: "+ req.params.id +" successfully deleted"
+            })
+        })
+    },
 }
