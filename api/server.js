@@ -3,10 +3,18 @@ require('dotenv').config()
 const express = require('express')
 const helmet = require('helmet')
 const logger = require('morgan')
+var fs = require('fs');
 
 const app = express()
 
-app.use(logger('dev'))
+// Logging to file
+app.use(logger('common', {
+    stream: fs.createWriteStream('./logs/access.log', {flags: 'a'})
+}));
+
+// Logging to console if not running in production
+if(app.get("env")!="production") app.use(logger('dev'));
+
 app.use(helmet())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
