@@ -7,7 +7,7 @@ var fs = require('fs');
 
 const app = express()
 
-// Logging to file
+// Logging to file ( flag 'a' to append )
 app.use(logger('common', {
     stream: fs.createWriteStream('./logs/access.log', {flags: 'a'})
 }));
@@ -26,3 +26,4 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 5000
 
 app.listen( PORT, () => console.log(`Server started on port ${PORT}`) )
+.on('error', console.log)
