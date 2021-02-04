@@ -5,5 +5,5 @@ Thumbs.db
 # Node
 node_modules
 .env
-logs/*
 !logs/.gitkeep
+*/logs/*
