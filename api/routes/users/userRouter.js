@@ -5,7 +5,7 @@ const { validate } = require('../../auth/tokenValidation')
 
 router.get('/', validate, getUsers)
 router.get('/:id', validate, getUserByID)
-router.post('/', validate, createUser)
+router.put('/', validate, createUser)
 router.patch('/:id', validate, updateUser)
 router.delete('/:id', validate, deleteUser)
 router.post('/login', login)
