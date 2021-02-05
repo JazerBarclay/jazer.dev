@@ -10,3 +10,10 @@ INSERT INTO users (
 ), (
 	'jazer@jazer.dev', 'jazer', 'dev', false
 );
+
+INSERT INTO posts (
+	author, slug, title, body
+) VALUES (
+	(SELECT user_id FROM users WHERE username='jazer'), 
+	'how-to-build-an-api', 'How to build an API', 'And here''s how to do it'
+);
