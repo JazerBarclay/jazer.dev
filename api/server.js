@@ -6,6 +6,7 @@ const logger = require('morgan')
 const fs = require('fs');
 
 const userRouter = require('./routes/users/userRouter')
+const postRouter = require('./routes/posts/postRouter')
 
 const app = express()
 
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/user', userRouter)
+app.use('/post', postRouter)
 
 const PORT = process.env.PORT || 5000
 
