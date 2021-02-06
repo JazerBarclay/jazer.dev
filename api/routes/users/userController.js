@@ -13,13 +13,11 @@ module.exports = {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
-                    success: 0,
                     message: "Database connection error"
                 });
             }
             results.rows[0].password = returnPass
             return res.status(200).json({
-                success: 1,
                 data: results.rows[0]
             })
         })
@@ -29,12 +27,10 @@ module.exports = {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
-                    success: 0,
                     message: "Database connection error"
                 });
             }
             return res.status(200).json({
-                success: 1,
                 data: results.rows
             })
         })
@@ -44,13 +40,11 @@ module.exports = {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
-                    success: 0,
                     message: "Database connection error"
                 });
             }
-            if (!results.rows[0]) res.status(404).json({success: 0, message: "No record found"})
+            if (!results.rows[0]) res.status(404).json({message: "No record found"})
             return res.status(200).json({
-                success: 1,
                 data: results.rows[0]
             })
         })
@@ -65,13 +59,11 @@ module.exports = {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
-                    success: 0,
                     message: "Database connection error"
                 });
             }
             results.rows[0].password = returnPass
             return res.status(200).json({
-                success: 1,
                 data: results.rows[0]
             })
         })
@@ -83,12 +75,10 @@ module.exports = {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
-                    success: 0,
                     message: "Database connection error"
                 });
             }
             return res.status(200).json({
-                success: 1,
                 message: "User id: "+ req.params.id +" successfully deleted"
             })
         })
@@ -97,18 +87,17 @@ module.exports = {
         const body = req.body;
         getByUsername(body.username, (err, results) => {
             if (err) console.log(err)
-            if (!results) return res.json({ success: 0, message: "Invalid username or password"})
+            if (!results) return res.json({ message: "Invalid username or password"})
             const comp = compareSync(body.password, results.password)
             if (comp) {
                 results.password = undefined
                 const jsontoken = sign({result: results}, process.env.JWT_KEY, {expiresIn: "1h"})
                 return res.json({
-                    success: 1,
                     message: "Login Successful",
                     token: jsontoken
                 })
             }
-            return res.json({ success: 0, message: "Invalid email or password"})
+            return res.json({ message: "Invalid email or password"})
         })
     }
 }
