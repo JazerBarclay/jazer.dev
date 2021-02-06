@@ -15,7 +15,17 @@ module.exports = {
     },
     getAll: (data, callBack) => {
         db.query(
-            `SELECT * FROM posts;`,
+            `SELECT * FROM posts ORDER BY post_id DESC;`,
+            [],
+            (error, results, fields) => {
+                if (error) return callBack(error)
+                return callBack(null, results)
+            }
+        )
+    },
+    getPublished: (data, callBack) => {
+        db.query(
+            `SELECT * FROM posts WHERE published IS NOT NULL ORDER BY post_id DESC;`,
             [],
             (error, results, fields) => {
                 if (error) return callBack(error)
