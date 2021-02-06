@@ -8,14 +8,12 @@ module.exports = {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
-                    success: 0,
                     message: "Database connection error"
                 });
             }
             
             return res.status(200).json({
-                success: 1,
-                data: results.rows[0]
+                results: results.rows[0]
             })
         })
     },
@@ -24,16 +22,14 @@ module.exports = {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
-                    success: 0,
                     message: "Database connection error"
                 });
             }
 
-            if (!results.rows[0]) return res.status(404).json({success: 0, message: "No records found"})
+            if (!results.rows[0]) return res.status(404).json({message: "No records found"})
 
             return res.status(200).json({
-                success: 1,
-                data: results.rows
+                results: results.rows
             })
         })
     },
@@ -42,17 +38,15 @@ module.exports = {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
-                    success: 0,
                     message: "Database connection error"
                 });
             }
 
-            if (!results.rows[0]) return res.status(404).json({success: 0, message: "No record found"})
+            if (!results.rows[0]) return res.status(404).json({message: "No record found"})
             
             if (req.params.slug != results.rows[0].slug) return res.redirect(301, "/post/"+req.params.id+"/"+results.rows[0].slug)
             
             return res.status(200).json({
-                success: 1,
                 data: results.rows[0]
             })
         })
@@ -62,16 +56,14 @@ module.exports = {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
-                    success: 0,
                     message: "Database connection error"
                 });
             }
             
-            if (!results.rows[0]) return res.status(404).json({success: 0, message: "No record found"})
+            if (!results.rows[0]) return res.status(404).json({message: "No record found"})
             
             return res.status(200).json({
-                success: 1,
-                data: results.rows[0]
+                results: results.rows[0]
             })
         })
     },
@@ -83,14 +75,12 @@ module.exports = {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
-                    success: 0,
                     message: "Database connection error"
                 });
             }
             
             return res.status(200).json({
-                success: 1,
-                data: results.rows[0]
+                results: results.rows[0]
             })
         })
     },
@@ -101,7 +91,6 @@ module.exports = {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
-                    success: 0,
                     message: "Database connection error"
                 });
             }
@@ -109,7 +98,6 @@ module.exports = {
             if (results.rowCount === 0) return res.status(404).json({success: 0, message: "Record not found"})
             
             return res.status(200).json({
-                success: 1,
                 message: "Post id: "+ req.params.id +" successfully deleted"
             })
         })
