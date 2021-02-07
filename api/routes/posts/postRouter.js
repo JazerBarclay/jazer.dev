@@ -1,13 +1,13 @@
-const { createPost, getPosts, getPostByID, updatePost, deletePost } = require('./postController')
+const { createPost, getPosts, getPostBySlug, updatePost, deletePost } = require('./postController')
 const router = require('express').Router()
 
 const { validate } = require('../../auth/tokenValidation')
+const { isAdmin } = require('../../auth/adminValidation')
 
-router.get('/', getPosts)
-router.get('/:id', getPostByID)
-router.get('/:id/:slug', getPostByID)
-router.put('/', createPost)
-router.patch('/:id', updatePost)
-router.delete('/:id', deletePost)
+router.get('/', validate, getPosts)
+router.get('/:slug', validate, getPostBySlug)
+router.put('/', validate, isAdmin, createPost)
+router.patch('/:slug', validate, isAdmin, updatePost)
+router.delete('/:slug', validate, isAdmin, deletePost)
 
 module.exports = router;
