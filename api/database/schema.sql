@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS posts (
     post_id SERIAL PRIMARY KEY,
     author INT REFERENCES users(user_id),
-    slug VARCHAR(255),
+    slug VARCHAR(255) UNIQUE,
     title VARCHAR(255),
     body VARCHAR,
     created TIMESTAMP NOT NULL DEFAULT current_timestamp,
