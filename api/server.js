@@ -2,13 +2,22 @@ require('dotenv').config()
 
 const express = require('express')
 const helmet = require('helmet')
+const cors = require("cors")
 const logger = require('morgan')
+
 const fs = require('fs');
 
 const userRouter = require('./routes/users/userRouter')
 const postRouter = require('./routes/posts/postRouter')
 
 const app = express()
+
+// Add Cross Site Origin Options
+var corsOptions = {
+    origin: "http://localhost:3000"
+};
+
+app.use(cors(corsOptions));
 
 // Logging to file ( flag 'a' to append )
 app.use(logger('common', {
