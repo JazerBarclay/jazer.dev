@@ -1,5 +1,6 @@
+const e = require('express')
 const { response } = require('express')
-const { create, getAll, getByID, update, remove } = require('./postService')
+const { create, getAll, getPublished, getBySlug, getByID, update, remove } = require('./postService')
 
 module.exports = {
     createPost: (req,res) => {
@@ -18,20 +19,33 @@ module.exports = {
         })
     },
     getPosts: (req,res) => {
-        getAll(null, (err, results) => {
-            if (err) {
-                console.log(err)
-                return res.status(500).json({
-                    message: "Database connection error"
-                });
-            }
-
-            if (!results.rows[0]) return res.status(404).json({message: "No records found"})
-
-            return res.status(200).json({
-                results: results.rows
+        if (req.body.auth.user_id !== 1) {
+            getPublished(null, (err, results) => {
+                if (err) {
+                    console.log(err)
+                    return res.status(500).json({
+                        message: "Database connection error"
+                    });
+                }
+    
+                return res.status(200).json({
+                    results: results.rows
+                })
             })
-        })
+        } else {
+            getAll(null, (err, results) => {
+                if (err) {
+                    console.log(err)
+                    return res.status(500).json({
+                        message: "Database connection error"
+                    });
+                }
+
+                return res.status(200).json({
+                    results: results.rows
+                })
+            })
+        }
     },
     getPostByID: (req,res) => {
         getByID(req.params.id, (err, results) => {
@@ -60,7 +74,15 @@ module.exports = {
                 });
             }
             
-            if (!results.rows[0]) return res.status(404).json({message: "No record found"})
+            // If not admin, dont show unpublished posts
+            // (fine to use filter rather than new query as single row response?)
+            if (req.body.auth.user_id !== 1) 
+                results.rows = results.rows.filter((item) => {
+                    return item.published !== null;
+                })
+
+            if (!results.rows[0]) 
+                return res.status(404).json({message: "No post found matching slug '"+req.params.slug+"'"})
             
             return res.status(200).json({
                 results: results.rows[0]
@@ -69,7 +91,7 @@ module.exports = {
     },
     updatePost: (req,res) => {
         const body = req.body
-        req.body.id = req.params.id
+        req.body.slug = req.params.slug
         req.body.last_updated = Date.now
         update(body, (err, results) => {
             if (err) {
@@ -85,9 +107,7 @@ module.exports = {
         })
     },
     deletePost: (req,res) => {
-        const body = req.body
-        req.body.id = req.params.id
-        remove(req.params.id, (err, results) => {
+        remove(req.params.slug, (err, results) => {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
