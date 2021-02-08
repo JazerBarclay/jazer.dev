@@ -5,11 +5,23 @@ Hosted on a [Linux](https://www.linux.org/) [Ubuntu Server](https://ubuntu.com/)
 
 All code tracked with [git](https://git-scm.com/) and code hosted on [GitHub](https://github.com/jazerbarclay/jazer.dev)
 
+---
+
+## Routes
+Path Route | Domain Route (redirect) | Content
+--|--|--
+[jazer.dev](https://jazer.dev/) | [www.jazer.dev](https://jazer.dev/) | Landing / Homepage with links to my blog, courses and portfolio
+[jazer.dev/api](https://jazer.dev/api/) | [api.jazer.dev](https://api.jazer.dev/) | The API that manages the blog, guides and courses posted
+[jazer.dev/about](https://jazer.dev/about/) | [about.jazer.dev](https://about.jazer.dev/) | My portfolio showcasing my best work and a bit about me (Pulled from jazer.co.uk)
+[jazer.dev/blog](https://jazer.dev/blog/) | [blog.jazer.dev](https://blog.jazer.dev/) | My personal blog containing guides and other learning
+jazer.dev/courses | courses.jazer.dev | Curated tutorials to teach concepts and give experience
+jazer.dev/admin | admin.jazer.dev | Admin area for me to manage posts, featured articles and courses
+
+---
+
 ## Try it out yourself :D
 
-To run the code locally, you can spin up a postgres database either on your system or docker container (as I am doing) using the following code:
-
-docker run -p 5432:5432 --name blogdb -e POSTGRES_PASSWORD=pgpassword -d postgres
+To run the code locally, you can spin up a postgres database either on your system or docker container (as I am doing) using the `docker-pg-example.sh` script under `deploy/scripts`
 
 then populating the database with the `schema.sql` file under `api/database/schema.sql`
 
@@ -29,18 +41,8 @@ Next, run the developer script (also under `packages.json`)
 npm run dev
 ```
 
-Then try out the api to your hearts content
+Finally, try out the api to your hearts content
 
 **NOTE**: _the route for /api is defined under NGINX on production so ommit this from your local queries_ :D
 
 ---
-
-## Routes
-Path Route | Domain Route (redirect) | Content
---|--|--
-[jazer.dev](https://jazer.dev/) | [www.jazer.dev](https://jazer.dev/) | Landing / Homepage with links to my blog, courses and portfolio
-[jazer.dev/api](https://jazer.dev/api/) | [api.jazer.dev](https://api.jazer.dev/) | The API that manages the blog, guides and courses posted
-[jazer.dev/about](https://jazer.dev/about/) | [about.jazer.dev](https://about.jazer.dev/) | My portfolio showcasing my best work and a bit about me (Pulled from jazer.co.uk)
-[jazer.dev/blog](https://jazer.dev/blog/) | [blog.jazer.dev](https://blog.jazer.dev/) | My personal blog containing guides and other learning
-jazer.dev/courses | courses.jazer.dev | Curated tutorials to teach concepts and give experience
-jazer.dev/admin | admin.jazer.dev | Admin area for me to manage posts, featured articles and courses
