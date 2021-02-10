@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Link, Switch, Route } from 'react-router-dom';
+import Post from './components/post.component'
+import PostList from './components/posts-list.component'
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <nav className="navbar navbar-expand navbar-dark bg-dark">
+          <a href="/" className="navbar-brand">
+            Blog
+          </a>
+          <div className="navbar-nav mr-auto">
+            {/* <li className="nav-item">
+              <Link to={"/post"} className="nav-link">
+                Blog Posts
+              </Link>
+            </li> */}
+            {/* <li className="nav-item">
+              <Link to={"/add"} className="nav-link">
+                
+              </Link>
+            </li> */}
+          </div>
+        </nav>
+
+        <div className="container mt-3">
+          <Switch>
+            <Route exact path={["/", "/post"]} component={PostList} />
+            <Route path="/post/:id" component={Post} />
+            {/* <Route exact path="/add" component={AddPost} /> */}
+          </Switch>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
