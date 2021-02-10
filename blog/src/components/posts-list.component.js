@@ -112,7 +112,7 @@ export default class PostsList extends Component {
           <ul className="list-group">
             {posts && posts.map((post, index) => (
                 <Link key={post.post_id}
-                to={"/post/" + post.slug}
+                to={"/" + post.slug}
                 >
                 <li
                   className={
