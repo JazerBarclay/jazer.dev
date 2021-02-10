@@ -1,33 +1,13 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import ReactMarkdown from 'react-markdown'
-import PostDataService from "../services/posts.service";
-
-const gfm = require('remark-gfm')
-
-const markdown = `A paragraph with *emphasis* and **strong importance**.
-
-> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
-
-* Lists
-* [ ] todo
-* [x] done
-
-A table:
-
-| a | b |
-| - | - |
-`
+import PostDataService from "../services/posts.service"
+import gfm from "remark-gfm"
 
 export default class Post extends Component {
   constructor(props) {
     super(props);
-    // this.onChangeSlug = this.onChangeSlug.bind(this);
-    // this.onChangeBody = this.onChangeBody.bind(this);
     this.getPost = this.getPost.bind(this);
     this.getLongDate = this.getLongDate.bind(this);
-    // this.updatePublished = this.updatePublished.bind(this);
-    // this.updatePost = this.updatePost.bind(this);
-    // this.deletePost = this.deletePost.bind(this);
 
     this.state = {
       currentPost: {
@@ -44,30 +24,6 @@ export default class Post extends Component {
   componentDidMount() {
     this.getPost(this.props.match.params.id);
   }
-
-//   onChangeTitle(e) {
-//     const title = e.target.value;
-
-//     this.setState(function(prevState) {
-//       return {
-//         currentPost: {
-//           ...prevState.currentPost,
-//           title: title
-//         }
-//       };
-//     });
-//   }
-
-//   onChangeDescription(e) {
-//     const body = e.target.value;
-    
-//     this.setState(prevState => ({
-//       currentTutorial: {
-//         ...body.currentPost,
-//         body: body
-//       }
-//     }));
-//   }
 
   getPost(id) {
     PostDataService.get(id)
@@ -107,7 +63,6 @@ export default class Post extends Component {
         )}
 
         <ReactMarkdown plugins={[gfm]} children={currentPost.body} />
-
       </div>
     );
   }
