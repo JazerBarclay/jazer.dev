@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import {Helmet} from "react-helmet";
 import ReactMarkdown from 'react-markdown'
 import PostDataService from "../services/posts.service"
 import gfm from "remark-gfm"
@@ -54,6 +55,11 @@ export default class Post extends Component {
 
     return (
       <div>
+
+        <Helmet>
+            <title>{currentPost.title} | Blog | Jazer.DEV</title>
+        </Helmet>
+
         <h1>{currentPost.title}</h1>
         <small>Created {this.getLongDate(currentPost.created)}</small><br />
         {currentPost.published ? (
