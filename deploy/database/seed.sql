@@ -13,8 +13,11 @@ INSERT INTO users (
 
 -- CREATE DUMMY POST
 INSERT INTO posts (
-	author, slug, title, body
+	author, slug, title, body, published
 ) VALUES (
 	(SELECT user_id FROM users WHERE username='jazer'), 
-	'how-to-build-an-api', 'How to build an API', 'And here''s how to do it'
+	'how-to-build-an-api', 'How to build an API', 'And here''s how to do it', null
+),(
+	(SELECT user_id FROM users WHERE username='jazer'), 
+	'configure-nginx-for-multiple-sites', 'How to configure nginx to host multiple sites', '## Hello World'||chr(13)||chr(10)||'Testing', now()
 );
