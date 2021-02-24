@@ -14,10 +14,13 @@ const app = express()
 
 // Add Cross Site Origin Options
 var corsOptions = {
-    origin: "http://localhost:3000"
+    origin: process.env.CORS_URL
 };
 
 app.use(cors(corsOptions));
+
+// Enable proxy for nginx
+app.set('trust proxy', true);
 
 // Logging to file ( flag 'a' to append )
 app.use(logger('common', {
@@ -25,7 +28,7 @@ app.use(logger('common', {
 }));
 
 // Logging to console if not running in production
-if(app.get("env")!="production") app.use(logger('dev'));
+if ( process.env.NODE_ENV != "production" ) app.use(logger('dev'));
 
 app.use(helmet())
 app.use(express.json())
