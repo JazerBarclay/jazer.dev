@@ -85,93 +85,33 @@ export default class PostsList extends Component {
     const { searchSlug, posts, currentPost, currentIndex } = this.state;
 
     return (
-      <div className="list row">
-        <div className="col-md-8">
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search by title"
-            //   value={searchSlug}
-            //   onChange={this.onChangeSearchSlug}
-            />
-            <div className="input-group-append">
-              <button
-                className="btn btn-outline-secondary"
-                type="button"
-                onClick={this.searchSlug}
-              >
-                Search
-              </button>
-            </div>
-          </div>
+      <div className="post-page">
+        <div className="profile">
+          <img src="pfp.png" />
+          <h1>Jazer Barclay</h1>
         </div>
-        <div className="col-md-6">
-          <h4>Post List</h4>
 
-          <ul className="list-group">
-            {posts && posts.map((post, index) => (
-                <Link key={post.post_id}
-                to={"/" + post.slug}
-                >
-                <li
-                  className={
-                    "list-group-item " +
-                    (index === currentIndex ? "active" : "")
-                  }
-                //   onClick={() => this.setActivePost(post, index)}
-                  key={index}
-                >
-                  {post.title}
-                </li>
-                </Link>
-              ))}
-          </ul>
+        <hr />
 
-          {/* <button
-            className="m-3 btn btn-sm btn-danger"
-            onClick={this.removeAllPosts}
-          >
-            Remove All
-          </button> */}
-        </div>
-        <div className="col-md-6">
-          {currentPost ? (
-            <div key={currentPost.post_id}>
-              <h4>Post</h4>
-              <div>
-                <label>
-                  <strong>Title:</strong>
-                </label>{" "}
-                {currentPost.title}
-              </div>
-              <div>
-                <label>
-                  <strong>Body:</strong>
-                </label>{" "}
-                {currentPost.body}
-              </div>
-              <div>
-                <label>
-                  <strong>Status:</strong>
-                </label>{" "}
-                {currentPost.published ? "Published" : "Pending"}
-              </div>
+        <section class="posts">
 
-              {/* <Link
-                to={"/post/" + currentPost.post_id}
-                className="badge badge-warning"
-              >
-                Edit
-              </Link> */}
+        {posts && posts.map((post, index) => (
+          <article class="post-card">
+          
+            <div class="post-header" key={index}>
+            <Link key={post.post_id} to={"/" + post.slug} >
+                <strong>{post.title}</strong>
+            </Link>
+              <span>{new Date(post.published).toLocaleDateString('en-GB')}</span>
             </div>
-          )
-           : (
-            <div>
-            </div>
-          )
-          }
-        </div>
+            <small>A quick guide to setting up an API using Express.JS</small>
+          
+          </article>
+        ))}
+
+        </section>
+
+        <hr />
       </div>
     );
   }
