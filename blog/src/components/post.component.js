@@ -61,14 +61,17 @@ export default class Post extends Component {
         </Helmet>
 
         <h1>{currentPost.title}</h1>
-        <small>Created {this.getLongDate(currentPost.created)}</small><br />
+
+        <hr />
+
         {currentPost.published ? (
             <small>Published {this.getLongDate(currentPost.published)}</small>
         ) : (
-            <small>Unpublished</small>
+          <small>Created {this.getLongDate(currentPost.created)}</small>
         )}
 
         <ReactMarkdown plugins={[gfm]} children={currentPost.body} />
+        
       </div>
     );
   }
