@@ -93,18 +93,18 @@ export default class PostsList extends Component {
 
         <hr />
 
-        <section class="posts">
+        <section className="posts">
 
         {posts && posts.map((post, index) => (
-          <article class="post-card">
+          <article className="post-card" key={index}>
           
-            <div class="post-header" key={index}>
+            <div className="post-header">
             <Link key={post.post_id} to={"/" + post.slug} >
                 <strong>{post.title}</strong>
             </Link>
               <span>{new Date(post.published).toLocaleDateString('en-GB')}</span>
             </div>
-            <small>A quick guide to setting up an API using Express.JS</small>
+            <small>{post.description}</small>
           
           </article>
         ))}
