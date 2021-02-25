@@ -4,9 +4,9 @@ module.exports = {
     create: (data, callBack) => {
         db.query(
             `INSERT INTO posts (
-                author, slug, title, body
-            ) VALUES ($1,$2,$3,$4) RETURNING *;`,
-            [data.user_id, data.slug, data.title, data.body],
+                author, slug, title, description, body
+            ) VALUES ($1,$2,$3,$4,$5) RETURNING *;`,
+            [data.user_id, data.slug, data.title, data.description, data.body],
             (error, results, fields) => {
                 if (error) return callBack(error)
                 return callBack(null, results)
@@ -55,8 +55,8 @@ module.exports = {
     },
     update: (data, callBack) => {
         db.query(
-            `UPDATE posts SET slug=$1, title=$2, body=$3, published=$4 WHERE post_id=$5 RETURNING *;`,
-            [data.slug, data.title, data.body, data.published, data.id],
+            `UPDATE posts SET slug=$1, title=$2, description=$3, body=$4 , published=$5 WHERE post_id=$6 RETURNING *;`,
+            [data.slug, data.title, data.description, data.body, data.published, data.id],
             (error, results, fields) => {
                 if (error) return callBack(error)
                 return callBack(null, results)
