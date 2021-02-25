@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS posts (
     author INT REFERENCES users(user_id),
     slug VARCHAR(255) UNIQUE,
     title VARCHAR(255),
+    description VARCHAR(255),
     body VARCHAR,
     created TIMESTAMP NOT NULL DEFAULT current_timestamp,
     published TIMESTAMP,
