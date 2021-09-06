@@ -97,7 +97,7 @@ module.exports = {
                     token: jsontoken
                 })
             }
-            return res.json({ message: "Invalid email or password"})
+            return res.json({ message: "Invalid username or password"})
         })
     }
 }
